@@ -43,68 +43,26 @@ $( document ).ready(function() {
         if (isNaN(parseInt(element))) {
 
           let operator = element;
-
+          let result;
           let terms = display.join("").split(operator).map(element => parseInt(element));
 
           if (operator === '÷') {
-            display = [terms[0] / terms[1]];
-            return $('#screen').text(terms[0] / terms[1]);
+            result = terms[0] / terms[1];
           } else if (operator === 'x') {
-            display = [terms[0] * terms[1]];
-            return $('#screen').text(terms[0] * terms[1]);
+            result = terms[0] * terms[1];
           } else if (operator === '-') {
-            display = [terms[0] - terms[1]];
-            return $('#screen').text(terms[0] - terms[1]);
+            result = terms[0] - terms[1];
           } else if (operator === '+') {
-            display = [terms[0] + terms[1]];
-            return $('#screen').text(terms[0] + terms[1]);
+            result = terms[0] + terms[1];
           } else {
             return error();
           }
+          display = [result];
+          return $('#screen').text(result);
 
-          // if (element === '÷') {
-          //   divide(element);
-          // } else if (element === 'x') {
-          //   multiply(element);
-          // } else if (element === '-') {
-          //   subtract(element);
-          // } else if (element === '+') {
-          //   add(element);
-          // }
         }
       } )
   }
-
-
-  /*
-  In this version, every operation has its own function, but that is not very DRY
-
-  let terms, result;
-
-  function divide(operator) {
-    terms = display.join("").split(operator).map(element => parseInt(element));
-    result = terms[0] / terms[1];
-    return $('#screen').text(result);
-  }
-
-  function multiply(operator) {
-    terms = display.join("").split(operator).map(element => parseInt(element));
-    result = terms[0] * terms[1];
-    return $('#screen').text(result);
-}
-
-  function subtract(operator) {
-    terms = display.join("").split(operator).map(element => parseInt(element));
-    result = terms[0] - terms[1];
-    return $('#screen').text(result);
-}
-
-  function add(operator) {
-    terms = display.join("").split(operator).map(element => parseInt(element));
-    result = terms[0] + terms[1];
-    return $('#screen').text(result);
-}
-  */
 
   /*
   When a span with id of 'clear' is clicked, display array should be empitied and updated so the html rendering is clear as well
