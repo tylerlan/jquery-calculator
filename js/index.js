@@ -35,7 +35,7 @@ $( document ).ready(function() {
   */
 
   function evaluate() {
-    if (display.length === 0) {
+    if (display.length === 0 || isNaN(display[0])) {
       return error();
     }
 
