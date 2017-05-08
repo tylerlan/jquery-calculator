@@ -45,15 +45,18 @@ $( document ).ready(function() {
           let operator = element;
 
           let terms = display.join("").split(operator).map(element => parseInt(element));
-          display = []; // reset the display
 
           if (operator === '÷') {
+            display = [terms[0] / terms[1]];
             return $('#screen').text(terms[0] / terms[1]);
           } else if (operator === 'x') {
+            display = [terms[0] * terms[1]];
             return $('#screen').text(terms[0] * terms[1]);
           } else if (operator === '-') {
+            display = [terms[0] - terms[1]];
             return $('#screen').text(terms[0] - terms[1]);
           } else if (operator === '+') {
+            display = [terms[0] + terms[1]];
             return $('#screen').text(terms[0] + terms[1]);
           } else {
             return error();
