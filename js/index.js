@@ -1,17 +1,5 @@
 $( document ).ready(function() {
 
-  // let spans = $('span');
-  // spans.click(console.log('SPAN!'));
-  //
-  //
-  // let operators = $('.operator');
-  // operators.click(function() {
-  //   let text = this.text();
-  //   console.log(text);
-  // })
-  //
-
-
   /*
   When a span is clicked,
   1) push its content to the display array, which
@@ -21,8 +9,17 @@ $( document ).ready(function() {
   let display = [];
 
   $('span').click(function() {
-    display.push(this.text());
-    renderDisplay();
+    console.log($(this));
+    console.log(display);
+
+    // first, check if the span that was clicks is the equals, and if so, don't push that to display but proceed immidiately to evaluate()
+    if ($(this).is('#equals')) {
+      evaluate();
+    } else {
+      display.push($(this).text());
+      renderDisplay();
+    }
+
   })
 
   function renderDisplay() {
@@ -37,7 +34,7 @@ $( document ).ready(function() {
   - When it encounters something that is Not a Number, it should check which operator it is a run a specialized function, one each for every operator
   */
 
-  $('#equals').click(evaluate());
+//  $('#equals').click(evaluate());
 
   function evaluate() {
     if (display.length === 0) {
@@ -101,10 +98,10 @@ $( document ).ready(function() {
   When a span with id of 'clear' is clicked, display array should be empitied and updated so the html rendering is clear as well
   */
 
-  $('#clear').click() {
+  $('#clear').click(function () {
     display = [];
-    renderDisplay()
-  }
+    return renderDisplay();
+  })
 
 
   /*
@@ -112,7 +109,7 @@ $( document ).ready(function() {
   */
   function error() {
     console.log('ERROR');
-    $('#screen').text('ERROR');
+    return $('#screen').text('ERROR');
   }
 
 });
