@@ -9,9 +9,6 @@ $( document ).ready(function() {
   let display = [];
 
   $('span').click(function() {
-    console.log($(this));
-    console.log(display);
-
     // first, check if the span that was clicks is the equals, and if so, don't push that to display but proceed immidiately to evaluate()
     if ($(this).is('#equals')) {
       evaluate();
@@ -19,7 +16,6 @@ $( document ).ready(function() {
       display.push($(this).text());
       renderDisplay();
     }
-
   })
 
   function renderDisplay() {
@@ -31,10 +27,12 @@ $( document ).ready(function() {
 
   - Looping over the array, it should check if isNaN() each element that is passed through a parseInt()
 
-  - When it encounters something that is Not a Number, it should check which operator it is a run a specialized function, one each for every operator
-  */
+  - When it encounters something that is Not a Number, it should split() the array, passing in the NaN element (which we now know is an operator), change the string terms into numbers, and and save the new array to the variable terms.
 
-//  $('#equals').click(evaluate());
+  - It should then perform calculation based on what the operator is, performing the operation of the first term (index 0) by the second term (index 1).
+
+  The result should be rendered to the screen.
+  */
 
   function evaluate() {
     if (display.length === 0) {
@@ -43,29 +41,40 @@ $( document ).ready(function() {
 
       display.forEach( (element) => {
         if (isNaN(parseInt(element))) {
-          if (element === '÷') {
-            divide(element);
-          } else if (element === 'x') {
-            multiply(element);
-          } else if (element === '-') {
-            subtract(element);
-          } else if (element === '+') {
-            add(element);
+
+          let operator = element;
+
+          let terms = display.join("").split(operator).map(element => parseInt(element));
+          display = []; // reset the display
+
+          if (operator === '÷') {
+            return $('#screen').text(terms[0] / terms[1]);
+          } else if (operator === 'x') {
+            return $('#screen').text(terms[0] * terms[1]);
+          } else if (operator === '-') {
+            return $('#screen').text(terms[0] - terms[1]);
+          } else if (operator === '+') {
+            return $('#screen').text(terms[0] + terms[1]);
+          } else {
+            return error();
           }
+
+          // if (element === '÷') {
+          //   divide(element);
+          // } else if (element === 'x') {
+          //   multiply(element);
+          // } else if (element === '-') {
+          //   subtract(element);
+          // } else if (element === '+') {
+          //   add(element);
+          // }
         }
       } )
   }
 
 
   /*
-  Each operator function should split() the array, passing in the NaN element, change the string terms into numbers, and and save the new array to the variable terms.
-
-  The terms array should hold two elements (two mathematical terms) which are strings of numbers. Check that this is true, and if not, throw an error.
-
-  Calculation can be done simply by performing the operation of the first term (index 0) by the second term (index 1).
-
-  The result should be rendered to the screen.
-  */
+  In this version, every operation has its own function, but that is not very DRY
 
   let terms, result;
 
@@ -91,8 +100,8 @@ $( document ).ready(function() {
     terms = display.join("").split(operator).map(element => parseInt(element));
     result = terms[0] + terms[1];
     return $('#screen').text(result);
-
 }
+  */
 
   /*
   When a span with id of 'clear' is clicked, display array should be empitied and updated so the html rendering is clear as well
